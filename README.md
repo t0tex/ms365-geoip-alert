@@ -1,5 +1,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Python](https://img.shields.io/badge/python-3.8+-blue)
+![Teams Webhook](https://img.shields.io/badge/Teams%20Webhook-enabled-purple)
+![SIEM Alerting](https://img.shields.io/badge/SIEM-alerting-orange)
+
 
 # MS365 Teams GeoIP Alert
 
