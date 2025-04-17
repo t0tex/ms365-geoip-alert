@@ -96,23 +96,24 @@ You can run the script manually:
 
 Or use systemd to schedule it every hour
 
-    Description=MS365 Geo Alert Monitor
-    After=network.target
+        [Unit]
+        Description=MS365 Geo Alert Monitor
+        After=network.target
 
-    [Service]
-    ExecStart=/usr/bin/python3 /root/ms365_geo_alert/ms365_geo_alert.py
-    Restart=always
-    RestartSec=1h
-    User=root
-    Group=root
-    Environment=PATH=/usr/bin:/usr/local/bin
-    WorkingDirectory=/root/ms365_geo_alert/
-    StandardOutput=journal
-    StandardError=journal
-    EnvironmentFile=/etc/ms365_geo_alert.env
+        [Service]
+        ExecStart=/usr/bin/python3 /opt/ms365_geo_alert/ms365_geo_alert.py
+        Restart=always
+        RestartSec=1h
+        User=your-user
+        Group=your-group
+        Environment=PATH=/usr/bin:/usr/local/bin
+        WorkingDirectory=/opt/ms365_geo_alert/
+        StandardOutput=journal
+        StandardError=journal
+        EnvironmentFile=/etc/ms365_geo_alert.env
 
-    [Install]
-    WantedBy=multi-user.target
+[Install]
+WantedBy=multi-user.target
 
 Update EnvironmentFile= to match your actual .env path (e.g. /etc/ms365_geo_alert.env)
 
