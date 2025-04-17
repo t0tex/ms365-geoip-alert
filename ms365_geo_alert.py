@@ -30,19 +30,22 @@ CLIENT_ID = os.environ["CLIENT_ID"]
 CLIENT_SECRET = os.environ["CLIENT_SECRET"]
 GROUP_ID = os.environ["GROUP_ID"]
 TEAMS_WEBHOOK = os.environ["TEAMS_WEBHOOK"]
+ALLOWED_COUNTRY = os.environ.get("ALLOWED_COUNTRY", "US")
+LOCAL_TZ = ZoneInfo(os.environ.get("LOCAL_TZ", "America/New_York"))
+LOG_DIR = os.environ.get("LOG_DIR", "./logs")
+os.makedirs(LOG_DIR, exist_ok=True)
 
 GRAPH_SCOPE = ["https://graph.microsoft.com/.default"]
 GRAPH_API = "https://graph.microsoft.com/v1.0"
 HUNTING_API = "https://graph.microsoft.com/beta/security/runHuntingQuery"
 
-LOG_FILE = "/var/log/ms365_geo_alert.log"
-ERROR_LOG_FILE = "/var/log/ms365_geo_alert.error.log"
-LAST_TS_FILE = "/var/log/ms365_geo_alert.last_ts"
-ALERT_TRACK_FILE = "/var/log/ms365_geo_alert.alerts.json"
-CSV_FILE = "/var/log/ms365_geo_alert.csv"
+LOG_FILE = os.path.join(LOG_DIR, "geo_alert.log")
+ERROR_LOG_FILE = os.path.join(LOG_DIR, "geo_alert.error.log")
+LAST_TS_FILE = os.path.join(LOG_DIR, "geo_alert.last_ts")
+ALERT_TRACK_FILE = os.path.join(LOG_DIR, "geo_alert.alerts.json")
+CSV_FILE = os.path.join(LOG_DIR, "geo_alert.csv")
 
 SUPPRESSION_HOURS = 8
-LOCAL_TZ = ZoneInfo("America/New_York")
 
 def log_error(msg):
     timestamp = datetime.datetime.now(LOCAL_TZ).isoformat()
@@ -101,7 +104,7 @@ try:
     let monitoredUsers = dynamic({user_array});
     AADSignInEventsBeta
     {time_filter}
-    | where Country != "US"
+    | where Country != "{ALLOWED_COUNTRY}"
     | where ErrorCode == 0
     | where ConditionalAccessStatus == 2
     | where AccountUpn in (monitoredUsers)
@@ -181,7 +184,7 @@ try:
         if resp.status_code != 200:
             log_error(f"Webhook error {resp.status_code}: {resp.text}")
 
-        log_entries.append(f"[{now}] ALERT: Outside-US login for {user} at {event_local}")
+        log_entries.append(f"[{now}] ALERT: Outside-{ALLOWED_COUNTRY} login for {user} at {event_local}")
 
         with open(CSV_FILE, "a", newline="") as csvfile:
             writer = csv.writer(csvfile)
