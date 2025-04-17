@@ -1,4 +1,4 @@
-![License](https://img.shields.io/github/license/t0tex/ms365-geoip-alert)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Python](https://img.shields.io/badge/python-3.8+-blue)
 
 # MS365 Teams GeoIP Alert
