@@ -3,12 +3,12 @@
 This script monitors Microsoft 365 sign-ins from users in a specific Entra ID group and sends an alert to Microsoft Teams if a login is detected **outside a defined country**. It uses the Microsoft Graph API and Defender XDR (Advanced Hunting) API to track activity, suppress repeat alerts, and provide adaptive card alerts in real time.
 
 ---
----
 
 ## 🧪 Example Alert (Microsoft Teams)
 
 ![GeoIP Alert Screenshot](https://github.com/t0tex/ms365-geoip-alert/blob/main/Geo%20IP%20Notificaiotn.png?raw=true)
 
+---
 
 ## 🔐 Prerequisites
 
@@ -29,9 +29,10 @@ Also required:
 ### 1. Clone the repository
 
 ```bash```
-```git clone https://github.com/t0tex/ms365-geoip-alert.git```
-```cd ms365-geoip-alert ```
 
+```git clone https://github.com/t0tex/ms365-geoip-alert.git```
+
+```cd ms365-geoip-alert```
 
 2. Install dependencies
 
@@ -40,82 +41,65 @@ Also required:
 📡 Azure App Registration (Microsoft Entra)
 1. Register an app in Azure AD
 
-    Go to: Azure Portal
+    ```Go to: Azure Portal```
 
-    Navigate to Azure Active Directory > App registrations
+    ```Navigate to Azure Active Directory > App registrations```
 
-    Click New registration
+    ```Click New registration```
 
-    Name it GeoIP Alert Monitor
+    ```Name it GeoIP Alert Monitor```
 
-    Leave redirect URI empty, click Register
+    ```Leave redirect URI empty, click Register```
 
 2. Create a client secret
 
-    Go to Certificates & secrets > New client secret
+    ```Go to Certificates & secrets > New client secret```
 
-    Save the secret value securely
+       ```Save the secret value securely```
 
 3. Assign API permissions
 
-    Go to API permissions > Add a permission
+Microsoft Graph → Application permissions:
+      ```Group.Read.All```
+      ```User.Read.All```
 
-        Microsoft Graph → Application permissions:
+Microsoft Defender for Endpoint (Security) → Application permissions:
+    ```AdvancedHunting.Read.All```
 
-            Group.Read.All
-
-            User.Read.All
-
-        Microsoft Defender for Endpoint (Security) → Application permissions:
-
-            AdvancedHunting.Read.All
-
-    Click Grant admin consent
-
+Click Grant admin consent
 4. Capture the following for your .env
 
-    ```Directory (tenant) ID```
-
+    ```Directory (tenant) ID```  
     ```Application (client) ID```
-
     ```Client secret```
-
     ```Group ID (security group containing the monitored users)```
-
     ```Teams webhook URL```
 
 ⚙️ Environment Configuration
 
 Use the provided .env.example as a starting point. Create your own .env or environment file:
 
-  ```TENANT_ID=your-tenant-id```
-
-  ```CLIENT_ID=your-client-id```
-
-  ```CLIENT_SECRET=your-client-secret```
-
-  ```GROUP_ID=your-group-id```
-
-  ```TEAMS_WEBHOOK=https://your-teams-webhook-url```
-
+    ```TENANT_ID=your-tenant-id```
+    ```CLIENT_ID=your-client-id```
+    ```CLIENT_SECRET=your-client-secret```
+    ```GROUP_ID=your-group-id```
+    ```TEAMS_WEBHOOK=https://your-teams-webhook-url```
 
 You can load these using dotenv, export them directly, or use a systemd EnvironmentFile.
 🚀 Running the Script
 
 You can run the script manually:
 
-python3 ms365_geo_alert.py
+    ```python3 ms365_geo_alert.py```
 
 Or use systemd to schedule it every hour:
 
+
+
 2. Update the environment file path
 
-Edit the file to ensure EnvironmentFile= points to your actual path (e.g. /etc/ms365_geo_alert.env)
-3. Reload and start the service
+Edit the file to ensure EnvironmentFile= points to your actual path (e.g. /etc/.env)
 
-sudo systemctl daemon-reexec
-sudo systemctl enable geoip-alert
-sudo systemctl start geoip-alert
 
 📁 Output & Logging
 
@@ -132,14 +116,6 @@ sudo systemctl start geoip-alert
     Timestamp tracker: /var/log/ms365_geo_alert.last_ts
 
 ⚠️ Alert Suppression: Users are only alerted once every 8 hours, even if multiple events occur.
-
----
-
-## 🧪 Example Alert (Microsoft Teams)
-
-![GeoIP Alert Screenshot](https://github.com/t0tex/ms365-geoip-alert/blob/main/Geo%20IP%20Notificaiotn.png?raw=true)
-
 📄 License
 
 This project is licensed under the MIT License. See the LICENSE file for full text.
-🧪 Example Alert (Microsoft Teams)
