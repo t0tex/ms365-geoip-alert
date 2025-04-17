@@ -28,9 +28,9 @@ Also required:
 
 ### 1. Clone the repository
 
-    git clone https://github.com/t0tex/ms365-geoip-alert.git
+        git clone https://github.com/t0tex/ms365-geoip-alert.git
 
-    cd ms365-geoip-alert
+        cd ms365-geoip-alert
     
 2. Install dependencies
 
@@ -67,31 +67,50 @@ Microsoft Defender for Endpoint (Security) → Application permissions:
 Click Grant admin consent
 4. Capture the following for your .env
 
-    Directory (tenant) ID
-    Application (client) ID
-    Client secret
-    Group ID (security group containing the monitored users)
-    Teams webhook URL
+        Directory (tenant) ID
+        Application (client) ID
+        Client secret
+        Group ID (security group containing the monitored users)
+        Teams webhook URL
 
 ⚙️ Environment Configuration
 
 Use the provided .env.example as a starting point. Create your own .env or environment file:
 
-    TENANT_ID=your-tenant-id
-    CLIENT_ID=your-client-id
-    CLIENT_SECRET=your-client-secret
-    GROUP_ID=your-group-id
-    TEAMS_WEBHOOK=https://your-teams-webhook-url
+        TENANT_ID=your-tenant-id
+        CLIENT_ID=your-client-id
+        CLIENT_SECRET=your-client-secret
+        GROUP_ID=your-group-id
+        TEAMS_WEBHOOK=https://your-teams-webhook-url
 
 You can load these using dotenv, export them directly, or use a systemd EnvironmentFile.
 🚀 Running the Script
 
 You can run the script manually:
 
-    ```python3 ms365_geo_alert.py```
+        python3 ms365_geo_alert.py
 
-Or use systemd to schedule it every hour:
+Or use systemd to schedule it every hour
 
+    Description=MS365 Geo Alert Monitor
+    After=network.target
+
+    [Service]
+    ExecStart=/usr/bin/python3 /root/ms365_geo_alert/ms365_geo_alert.py
+    Restart=always
+    RestartSec=1h
+    User=root
+    Group=root
+    Environment=PATH=/usr/bin:/usr/local/bin
+    WorkingDirectory=/root/ms365_geo_alert/
+    StandardOutput=journal
+    StandardError=journal
+    EnvironmentFile=/etc/ms365_geo_alert.env
+
+    [Install]
+    WantedBy=multi-user.target
+
+Update EnvironmentFile= to match your actual .env path (e.g. /etc/ms365_geo_alert.env)
 
 
 2. Update the environment file path
