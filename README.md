@@ -82,6 +82,9 @@ Use the provided .env.example as a starting point. Create your own .env or envir
         CLIENT_SECRET=your-client-secret
         GROUP_ID=your-group-id
         TEAMS_WEBHOOK=https://your-teams-webhook-url
+        ALLOWED_COUNTRY=US              # Use 2-letter ISO country code (e.g. US, DE, MX)
+        LOCAL_TZ=America/New_York       #  time zone string (e.g. Europe/Berlin)
+        LOG_DIR=./logs                  # Directory for logs (default is ./logs)
 
 You can load these using dotenv, export them directly, or use a systemd EnvironmentFile.
 🚀 Running the Script
@@ -120,17 +123,14 @@ Edit the file to ensure EnvironmentFile= points to your actual path (e.g. /etc/.
 
 📁 Output & Logging
 
-    Alerts: sent to Teams as Adaptive Cards
+ Logs are written to the path specified in `LOG_DIR` (default is `./logs`):
 
-    CSV log: /var/log/ms365_geo_alert.csv
+        - CSV log: geo_alert.csv  
+        - Log file: geo_alert.log  
+        - Error log: geo_alert.error.log  
+        - Alert cache: geo_alert.alerts.json  
+        - Timestamp tracker: geo_alert.last_ts  
 
-    Log file: /var/log/ms365_geo_alert.log
-
-    Error log: /var/log/ms365_geo_alert.error.log
-
-    Alert cache: /var/log/ms365_geo_alert.alerts.json
-
-    Timestamp tracker: /var/log/ms365_geo_alert.last_ts
 
 ⚠️ Alert Suppression: Users are only alerted once every 8 hours, even if multiple events occur.
 📄 License
