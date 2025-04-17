@@ -1,3 +1,6 @@
+![License](https://img.shields.io/github/license/t0tex/ms365-geoip-alert)
+![Python](https://img.shields.io/badge/python-3.8+-blue)
+
 # MS365 Teams GeoIP Alert
 
 This script monitors Microsoft 365 sign-ins from users in a specific Entra ID group and sends an alert to Microsoft Teams if a login is detected **outside a defined country**. It uses the Microsoft Graph API and Defender XDR (Advanced Hunting) API to track activity, suppress repeat alerts, and provide adaptive card alerts in real time.
