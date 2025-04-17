@@ -28,62 +28,60 @@ Also required:
 
 ### 1. Clone the repository
 
-```bash```
+    git clone https://github.com/t0tex/ms365-geoip-alert.git
 
-```git clone https://github.com/t0tex/ms365-geoip-alert.git```
-
-```cd ms365-geoip-alert```
-
+    cd ms365-geoip-alert
+    
 2. Install dependencies
 
-```pip install -r requirements.txt```
+        pip install -r requirements.txt
 
 📡 Azure App Registration (Microsoft Entra)
 1. Register an app in Azure AD
 
-    ```Go to: Azure Portal```
+   Go to: Azure Portal
 
-    ```Navigate to Azure Active Directory > App registrations```
+      Navigate to Azure Active Directory > App registrations
 
-    ```Click New registration```
+       Click New registration
 
-    ```Name it GeoIP Alert Monitor```
+       Name it GeoIP Alert Monitor (Your Choice TBH)
 
-    ```Leave redirect URI empty, click Register```
+       Leave redirect URI empty, click Register
 
 2. Create a client secret
 
-    ```Go to Certificates & secrets > New client secret```
+    Go to Certificates & secrets > New client secret
 
-       ```Save the secret value securely```
+       Save the secret value securely
 
 3. Assign API permissions
 
 Microsoft Graph → Application permissions:
-      ```Group.Read.All```
-      ```User.Read.All```
+    Group.Read.All
+    User.Read.All
 
 Microsoft Defender for Endpoint (Security) → Application permissions:
-    ```AdvancedHunting.Read.All```
+    AdvancedHunting.Read.All
 
 Click Grant admin consent
 4. Capture the following for your .env
 
-    ```Directory (tenant) ID```  
-    ```Application (client) ID```
-    ```Client secret```
-    ```Group ID (security group containing the monitored users)```
-    ```Teams webhook URL```
+    Directory (tenant) ID
+    Application (client) ID
+    Client secret
+    Group ID (security group containing the monitored users)
+    Teams webhook URL
 
 ⚙️ Environment Configuration
 
 Use the provided .env.example as a starting point. Create your own .env or environment file:
 
-    ```TENANT_ID=your-tenant-id```
-    ```CLIENT_ID=your-client-id```
-    ```CLIENT_SECRET=your-client-secret```
-    ```GROUP_ID=your-group-id```
-    ```TEAMS_WEBHOOK=https://your-teams-webhook-url```
+    TENANT_ID=your-tenant-id
+    CLIENT_ID=your-client-id
+    CLIENT_SECRET=your-client-secret
+    GROUP_ID=your-group-id
+    TEAMS_WEBHOOK=https://your-teams-webhook-url
 
 You can load these using dotenv, export them directly, or use a systemd EnvironmentFile.
 🚀 Running the Script
