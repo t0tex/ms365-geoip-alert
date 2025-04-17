@@ -87,6 +87,7 @@ Use the provided .env.example as a starting point. Create your own .env or envir
         LOG_DIR=./logs                  # Directory for logs (default is ./logs)
 
 You can load these using dotenv, export them directly, or use a systemd EnvironmentFile.
+
 🚀 Running the Script
 
 You can run the script manually:
