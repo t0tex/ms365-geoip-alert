@@ -125,7 +125,7 @@ Or use systemd to schedule it every hour
         [Install]
         WantedBy=multi-user.target
 
-        #```Update EnvironmentFile= to match your actual .env path (e.g. /etc/ms365_geo_alert.env)```
+        Update EnvironmentFile= to match your actual .env path (e.g. /etc/ms365_geo_alert.env)
 
 
 2. Update the environment file path
