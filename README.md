@@ -43,6 +43,7 @@ Also required:
         pip install -r requirements.txt
 
 📡 Azure App Registration (Microsoft Entra)
+
 1. Register an app in Azure AD
 
    Go to: Azure Portal
@@ -71,6 +72,7 @@ Microsoft Defender for Endpoint (Security) → Application permissions:
     AdvancedHunting.Read.All
 
 Click Grant admin consent
+
 4. Capture the following for your .env
 
         Directory (tenant) ID
@@ -94,7 +96,9 @@ Use the provided .env.example as a starting point. Create your own .env or envir
 
 You can load these using dotenv, export them directly, or use a systemd EnvironmentFile.
 
+
 🚀 Running the Script
+
 
 You can run the script manually:
 
@@ -118,15 +122,17 @@ Or use systemd to schedule it every hour
         StandardError=journal
         EnvironmentFile=/etc/ms365_geo_alert.env
 
-[Install]
-WantedBy=multi-user.target
+        [Install]
+        WantedBy=multi-user.target
 
-Update EnvironmentFile= to match your actual .env path (e.g. /etc/ms365_geo_alert.env)
+        #```Update EnvironmentFile= to match your actual .env path (e.g. /etc/ms365_geo_alert.env)```
 
 
 2. Update the environment file path
 
 Edit the file to ensure EnvironmentFile= points to your actual path (e.g. /etc/.env)
+
+
 
 
 📁 Output & Logging
@@ -141,6 +147,7 @@ Edit the file to ensure EnvironmentFile= points to your actual path (e.g. /etc/.
 
 
 ⚠️ Alert Suppression: Users are only alerted once every 8 hours, even if multiple events occur.
+
 📄 License
 
 This project is licensed under the MIT License. See the LICENSE file for full text.
